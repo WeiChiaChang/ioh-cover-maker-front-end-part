@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test Canvas to Blob</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+	<link rel="stylesheet" href="css/index.css">
+	
+	<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cropit.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<!--<h1>Poster Image</h1>-->
+        <div class="jumbotron">
+            <h1>操作說明</h1>
+            <ol>
+                <li>在右下角裁切照片，並保持人像在右方紅色所示 facebook cover 範圍內</li>
+                <li>於左下角填寫基本資料</li><li>存檔後寄給工作人員!</li>
+            </ol>
+        </div>
+
+		<div id="preview-one">
+			<div id="poster-content" >
+			  <div id="poster-area">
+				  <img id="poster-image" src="//placehold.it/960x430" width="960" height="430">
+				</div>
+				<img id="poster-button-icon" src="img/camera3.png" data-toggle="modal" data-target="#poster-modal" height= "30" width= "30">
+				<a id="poster-button-area" data-toggle="modal" data-target="#poster-modal">
+			    <div class="col-md-8" id="poster-button-word">更換背景圖</div>
+			  </a>
+			</div>
+			
+			<div id="ioh-banner">
+				<img src="img/testIOH.png" width="960" height="110">
+			</div>
+			
+			<a id="selfie-area" data-toggle="modal" data-target="#selfie-modal">
+			  <img id="selfie-image" src="//placehold.it/160x160" width="160" height="160">
+			</a>
+			<img id="selfie-button-icon" src="img/camera3.png" data-toggle="modal" data-target="#selfie-modal" height= "30" width= "30">
+			<a id="selfie-button-area" data-toggle="modal" data-target="#selfie-modal">
+			  <div class="col-md-8" id="selfie-button-word">更換大頭貼</div>
+			</a>
+			
+			<div id="poster-content-area">
+			  <textarea id="poster-content-textarea" placeholder="（簡介）"></textarea>
+			</div>
+			
+			<div id="location-area">
+			  <textarea id="location-textarea">地點：</textarea>
+			</div>
+			
+			<div id="name-experience-area">
+			  <textarea id="name-textarea" placeholder="（姓名）"></textarea>
+
+			  <textarea class="experience-textarea" id="experience-1" placeholder="（經歷1）"></textarea>
+			  <textarea class="experience-textarea" id="experience-2" placeholder="（經歷2）"></textarea>
+			  <textarea class="experience-textarea" id="experience-3" placeholder="（經歷3）"></textarea>
+			</div>
+		</div>
+		
+		
+		<div class="container" id="poster-form">
+		  <a type="button" class="btn btn-info" id="download" download="poster.jpg">儲存</a>
+		</div>
+		
+		
+    <!-- selfie-modal -->
+    <div class="modal fade" id="selfie-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">大頭貼裁切</h4>
+          </div>
+          <div class="modal-body container">
+            <div class="image-editor ">
+              <input type="file" class="cropit-image-input">
+              <!-- .cropit-image-preview-container is needed for background image to work -->
+              <div class="cropit-image-preview-container">
+                <div class="cropit-image-preview" id="selfie-cropit-image-preview"></div>
+              </div>
+              <div class="row range-bar-container">
+                <div class="col-md-1 icon-size">-</div>
+                <div class="col-md-6" id="range-bar"><input type="range" class="cropit-image-zoom-input"></div>
+                <div class="col-md-1 icon-size" id="add-icon">+</div>
+              </div>
+            </div>
+          </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" id="selfie-export-exit-button"  data-dismiss="modal">關閉</button>
+              <button type="button"  class="btn btn-primary selfie-export">確定</button>
+            </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+		
+		<!-- poster-modal -->
+    <div class="modal fade" id="poster-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" id="poster-modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">背景圖裁切</h4>
+          </div>
+          <div class="modal-body container">
+            <div class="image-editor" id="poster-image-editor">
+              <input type="file" class="cropit-image-input">
+              <!-- .cropit-image-preview-container is needed for background image to work -->
+              <div class="cropit-image-preview-container">
+                <div class="cropit-image-preview" id="poster-cropit-image-preview"></div>
+              </div>
+              <div class="row range-bar-container" id="poster-range-bar-container">
+                <div class="col-md-1 icon-size">-</div>
+                <div class="col-md-6" id="range-bar"><input type="range" class="cropit-image-zoom-input"></div>
+                <div class="col-md-1 icon-size" id="add-icon">+</div>
+              </div>
+            </div>
+          </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" id="poster-export-exit-button"  data-dismiss="modal">關閉</button>
+              <button type="button"  class="btn btn-primary poster-export">確定</button>
+           </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+
+    <script>
+    
+      var selfieImageData, posterImageData;
+      var triggerOnce = 0;
+      var canvas = document.createElement('canvas'),
+      			ctx    = canvas.getContext('2d');
+      			canvas.width  = 1920;
+      			canvas.height = 1080;
+      var url = "";
+      
+      $(function() {
+        $('.image-editor').cropit({
+          exportZoom: 1,
+          imageBackground: true,
+          imageBackgroundBorderWidth: 50,
+        });
+
+        $('.selfie-export').click(function() {
+          selfieImageData = $('.image-editor').cropit('export');
+          $('#selfie-image').attr("src", selfieImageData);
+          document.getElementById('selfie-export-exit-button').click(); //關閉視窗
+        });
+        
+        $('.poster-export').click(function() {
+          posterImageData = $('#poster-image-editor').cropit('export');
+          $('#poster-image').attr("src", posterImageData);
+          document.getElementById('poster-export-exit-button').click(); //關閉視窗
+        });
+        
+        $('#selfie-area').mouseenter(function(){
+          $('#selfie-button-word').animate({
+              opacity: 1
+          }, 200 );
+          $('#selfie-button-area').animate({
+              opacity: 1
+          }, 200 );
+        });
+        
+        $('#selfie-button-area').mouseenter(function(){
+          if($('#selfie-button-word').css("opacity") == "0") {
+              $('#selfie-button-word').animate({
+                opacity: 1
+            }, 200 );
+            $('#selfie-button-area').animate({
+                opacity: 1
+            }, 200 );
+          }
+          
+        });
+        
+        $('#selfie-area').mouseleave(function(){
+          if($('#selfie-button-area').is(':hover') !== true && $('#selfie-button-icon').is(':hover') !== true) {
+            $('#selfie-button-area').animate({
+              opacity: 0
+            }, 50 );
+            $('#selfie-button-word').animate({
+                opacity: 0
+            }, 200 );
+          }
+          
+        });
+        
+        $('#selfie-button-area').mouseleave(function(){
+          if($('#selfie-area').is(':hover') !== true && $('#selfie-button-icon').is(':hover') !== true) {
+            $('#selfie-button-word').animate({
+                opacity: 0
+            }, 50 );
+            $('#selfie-button-area').animate({
+                opacity: 0
+            }, 200 );
+          }
+        });
+        
+        $('#poster-button-area').mouseenter(function(){
+          $('#poster-button-word').animate({
+            opacity: 1
+          }, 200 );
+          $('#poster-button-area').animate({
+            opacity: 1
+          }, 200 );
+        });
+        
+        $('#poster-button-area').mouseleave(function(){
+          if($('#poster-button-icon').is(':hover') !== true) {
+            $('#poster-button-word').animate({
+              opacity: 0
+            }, 50 );
+            $('#poster-button-area').animate({
+              opacity: 0
+            }, 200 );
+          }
+        });
+        
+        $('#poster-button-icon').mouseenter(function(){
+          $('#poster-button-word').animate({
+            opacity: 1
+          }, 200 );
+          $('#poster-button-area').animate({
+            opacity: 1
+          }, 200 );
+        });
+        
+        $('#poster-button-icon').mouseleave(function(){
+          if($('#poster-button-area').is(':hover') !== true) {
+            $('#poster-button-word').animate({
+              opacity: 0
+            }, 50 );
+            $('#poster-button-area').animate({
+              opacity: 0
+            }, 200 );
+          }
+        });
+      });
+      	
+      //set the download btn
+      $('#download').click(function(){
+      	
+      	var numOfImg = 3, imgLoaded = 0;
+        
+        //poster backgroung image
+        var posterBGI = new Image();
+        
+        posterBGI.onload = function(){
+        	ctx.drawImage(posterBGI, 0, 0, 1920, 860);
+        	imgLoaded ++;
+        
+      		if (imgLoaded == numOfImg){
+      			url = canvas.toDataURL("image/jpeg");
+      		}
+      	};
+        
+        posterBGI.src = posterImageData;
+        //posterBGI.src = "testBGI.jpg";
+        
+        //poster selfie
+        var posterSelfie = new Image();
+        
+        posterSelfie.onload = function(){
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(1530, 456, 340, 340);  
+          
+        	ctx.drawImage(posterSelfie, 1540, 466, 320, 320);
+        	imgLoaded ++;
+        
+      		if (imgLoaded == numOfImg){
+      			url = canvas.toDataURL("image/jpeg");
+      		}
+      	};
+        
+        posterSelfie.src = selfieImageData;
+        //posterSelfie.src = "testBGI.jpg";
+        
+      	//poster IOH banner
+        var posterIOH = new Image();
+        
+      	posterIOH.onload = function(){
+        	ctx.drawImage(posterIOH, 0, 860);
+        	imgLoaded ++;
+        
+      		if (imgLoaded == numOfImg){
+      		  drawTextArea();
+      		  drawLocationText();
+      		  drawNameAndExperienceText();
+      			url = canvas.toDataURL("image/jpeg");
+      		  $('#download').attr("href", url);
+      		  
+      		  if(triggerOnce == 0) {
+              document.getElementById('download').click();
+      		    //document.body.appendChild(canvas);
+      		    triggerOnce = 1;
+      		  }
+      		}
+      	};
+        
+        posterIOH.src = "img/testIOH.png";
+      });
+      
+      //畫文字框
+      function drawTextArea(){
+        var text = document.getElementById('poster-content-textarea').value;
+        var lines = text.split("\n");
+        var height = lines.length * 34 + 30;
+        
+        //文字框背景
+        ctx.globalAlpha = 0.56;
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(870, 796-height, 620, height);  
+        
+        //文字本身
+        ctx.globalAlpha = 1;
+        ctx.font="700 30px Helvetica";
+        ctx.fillStyle = "#000000";
+        
+        var y = 836-height;
+        
+        for(var i = 0; i < lines.length; i++) {
+          var words = lines[i].split(' ');
+          var line = '';
+          
+          for (var n = 0; n < words.length; n++) {
+            var testLine = line + words[n] + ' ';
+            
+            line = testLine;
+          }
+      
+          ctx.fillText(line, 890, y);
+          y += 34;
+        }
+      }
+      
+      //畫地點文字
+      function drawLocationText(){
+        var text = document.getElementById('location-textarea').value;
+
+        //文字本身
+        ctx.globalAlpha = 1;
+        ctx.font="700 24px Helvetica";
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "right";
+        ctx.fillText(text, 1870, 840);
+      }
+      
+      //畫名字和經歷
+      function drawNameAndExperienceText() {
+        var name = document.getElementById('name-textarea').value;
+        var exp1 = document.getElementById('experience-1').value;
+        var exp2 = document.getElementById('experience-2').value;
+        var exp3 = document.getElementById('experience-3').value;
+        
+        ctx.font="700 28px Helvetica";
+        ctx.fillStyle = "#000000";
+        ctx.fillText(name, 1870, 910);
+        ctx.fillText(exp1, 1870, 955);
+        ctx.fillText(exp2, 1870, 1000);
+        ctx.fillText(exp3, 1870, 1045);
+      }
+      
+      //textarea自動長高高
+      document.getElementById('poster-content-textarea').addEventListener('keyup', function () {
+        this.style.height = 0;
+        this.style.height = this.scrollHeight + 'px';
+      }, false);
+      
+      
+    </script>
+		
+	</div>
+	
+
+	<!--<script src="js/html2canvas.js"></script>-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.1.0/js/canvas-to-blob.min.js"></script>
+	<script>
+    	
+	</script>
+
+</body>
+</html>
