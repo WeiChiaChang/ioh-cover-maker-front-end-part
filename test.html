@@ -15,13 +15,13 @@
 <body>
 	<div class="container">
 		<!--<h1>Poster Image</h1>-->
-    <div class="jumbotron">
-      <h1>操作說明</h1>
-      <ol>
-        <li>在右下角裁切照片，並保持人像在右方紅色所示 facebook cover 範圍內</li>
-        <li>於左下角填寫基本資料</li><li>存檔後寄給工作人員!</li>
-      </ol>
-    </div>
+        <div class="jumbotron">
+            <h1>操作說明</h1>
+            <ol>
+                <li>在右下角裁切照片，並保持人像在右方紅色所示 facebook cover 範圍內</li>
+                <li>於左下角填寫基本資料</li><li>存檔後寄給工作人員!</li>
+            </ol>
+        </div>
 
 		<div id="preview-one">
 			<div id="poster-content" >
@@ -260,7 +260,7 @@
       	
       //set the download btn
       $('#download').click(function(){
-      	var numOfImg = 3, imgLoaded = 0;
+      	var numOfImg = 2, imgLoaded = 0;
         
         //poster backgroung image
         var posterBGI = new Image();
@@ -279,6 +279,7 @@
         
         //poster selfie
         if($('#selfie-toggle').prop('checked') == true) {
+          numOfImg = 3;
           var posterSelfie = new Image();
           
           posterSelfie.onload = function(){
