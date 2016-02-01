@@ -4,22 +4,24 @@
 	<meta charset="UTF-8">
 	<title>Test Canvas to Blob</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+	<link rel="stylesheet" href="css/bootstrap2-toggle.min.css"></link>
 	<link rel="stylesheet" href="css/index.css">
 	
 	<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
   <script type="text/javascript" src="js/jquery.cropit.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap2-toggle.min.js"></script>
 </head>
 <body>
 	<div class="container">
 		<!--<h1>Poster Image</h1>-->
-        <div class="jumbotron">
-            <h1>操作說明</h1>
-            <ol>
-                <li>在右下角裁切照片，並保持人像在右方紅色所示 facebook cover 範圍內</li>
-                <li>於左下角填寫基本資料</li><li>存檔後寄給工作人員!</li>
-            </ol>
-        </div>
+    <div class="jumbotron">
+      <h1>操作說明</h1>
+      <ol>
+        <li>在右下角裁切照片，並保持人像在右方紅色所示 facebook cover 範圍內</li>
+        <li>於左下角填寫基本資料</li><li>存檔後寄給工作人員!</li>
+      </ol>
+    </div>
 
 		<div id="preview-one">
 			<div id="poster-content" >
@@ -63,7 +65,20 @@
 		
 		
 		<div class="container" id="poster-form">
+		  
+		  <input id="selfie-toggle" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-on="使用" data-off="不使用" data-width="75" data-height="34">
+		  <span>大頭貼</span> &nbsp &nbsp
+		  <input id="location-toggle" type="checkbox" checked data-toggle="toggle" data-onstyle="default" data-on="白字" data-off="黑字" data-width="65" data-height="34">
+		  <span>地點</span> &nbsp &nbsp
+		  <input id="experience-toggle-1" type="checkbox" data-toggle="toggle" data-onstyle="danger" data-on="紅字" data-off="黑字" data-width="65" data-height="34">
+		  <span>經歷一</span> &nbsp &nbsp
+		  <input id="experience-toggle-2" type="checkbox" data-toggle="toggle" data-onstyle="danger" data-on="紅字" data-off="黑字" data-width="65" data-height="34">
+		  <span>經歷二</span> &nbsp &nbsp
+		  <input id="experience-toggle-3" type="checkbox" data-toggle="toggle" data-onstyle="danger" data-on="紅字" data-off="黑字" data-width="65" data-height="34">
+		  <span>經歷三</span>
+		  <br><br>
 		  <a type="button" class="btn btn-info" id="download" download="poster.jpg">儲存</a>
+		  <br><br>
 		</div>
 		
 		
@@ -157,16 +172,18 @@
         });
         
         $('#selfie-area').mouseenter(function(){
-          $('#selfie-button-word').animate({
-              opacity: 1
-          }, 200 );
-          $('#selfie-button-area').animate({
-              opacity: 1
-          }, 200 );
+          if($('#selfie-toggle').prop('checked') == true) {
+            $('#selfie-button-word').animate({
+                opacity: 1
+            }, 200 );
+            $('#selfie-button-area').animate({
+                opacity: 1
+            }, 200 );
+          }
         });
         
         $('#selfie-button-area').mouseenter(function(){
-          if($('#selfie-button-word').css("opacity") == "0") {
+          if($('#selfie-button-word').css("opacity") == "0" && $('#selfie-toggle').prop('checked') == true) {
               $('#selfie-button-word').animate({
                 opacity: 1
             }, 200 );
@@ -243,7 +260,6 @@
       	
       //set the download btn
       $('#download').click(function(){
-      	
       	var numOfImg = 3, imgLoaded = 0;
         
         //poster backgroung image
@@ -262,22 +278,24 @@
         //posterBGI.src = "testBGI.jpg";
         
         //poster selfie
-        var posterSelfie = new Image();
-        
-        posterSelfie.onload = function(){
-          ctx.fillStyle = "#FFFFFF";
-          ctx.fillRect(1530, 456, 340, 340);  
+        if($('#selfie-toggle').prop('checked') == true) {
+          var posterSelfie = new Image();
           
-        	ctx.drawImage(posterSelfie, 1540, 466, 320, 320);
-        	imgLoaded ++;
+          posterSelfie.onload = function(){
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(1530, 456, 340, 340);  
+            
+          	ctx.drawImage(posterSelfie, 1540, 466, 320, 320);
+          	imgLoaded ++;
+          
+        		if (imgLoaded == numOfImg){
+        			url = canvas.toDataURL("image/jpeg");
+        		}
+        	};
         
-      		if (imgLoaded == numOfImg){
-      			url = canvas.toDataURL("image/jpeg");
-      		}
-      	};
-        
-        posterSelfie.src = selfieImageData;
-        //posterSelfie.src = "testBGI.jpg";
+          posterSelfie.src = selfieImageData;
+          //posterSelfie.src = "testBGI.jpg";
+        }
         
       	//poster IOH banner
         var posterIOH = new Image();
@@ -328,7 +346,6 @@
           
           for (var n = 0; n < words.length; n++) {
             var testLine = line + words[n] + ' ';
-            
             line = testLine;
           }
       
@@ -340,37 +357,113 @@
       //畫地點文字
       function drawLocationText(){
         var text = document.getElementById('location-textarea').value;
-
+  
         //文字本身
         ctx.globalAlpha = 1;
         ctx.font="700 24px Helvetica";
-        ctx.fillStyle = "#FFFFFF";
+        if($('#location-toggle').prop('checked') == true) { // 白字
+          ctx.fillStyle = "#FFFFFF";
+        }
+        else {
+          ctx.fillStyle = "#000000";
+        }
         ctx.textAlign = "right";
         ctx.fillText(text, 1870, 840);
       }
-      
+        
       //畫名字和經歷
       function drawNameAndExperienceText() {
         var name = document.getElementById('name-textarea').value;
         var exp1 = document.getElementById('experience-1').value;
         var exp2 = document.getElementById('experience-2').value;
         var exp3 = document.getElementById('experience-3').value;
-        
+          
         ctx.font="700 28px Helvetica";
-        ctx.fillStyle = "#000000";
         ctx.fillText(name, 1870, 910);
+        if($('#experience-toggle-1').prop('checked') == true) {
+          ctx.fillStyle = "#FF0000";
+        }
+        else {
+          ctx.fillStyle = "#000000";
+        }
         ctx.fillText(exp1, 1870, 955);
+        if($('#experience-toggle-2').prop('checked') == true) {
+          ctx.fillStyle = "#FF0000";
+        }
+        else {
+          ctx.fillStyle = "#000000";
+        }
         ctx.fillText(exp2, 1870, 1000);
+        if($('#experience-toggle-3').prop('checked') == true) {
+          ctx.fillStyle = "#FF0000";
+        }
+        else {
+          ctx.fillStyle = "#000000";
+        }
         ctx.fillText(exp3, 1870, 1045);
       }
-      
+        
       //textarea自動長高高
       document.getElementById('poster-content-textarea').addEventListener('keyup', function () {
         this.style.height = 0;
         this.style.height = this.scrollHeight + 'px';
       }, false);
       
+      $('#selfie-toggle').change(function() {
+        if($(this).prop('checked') == false) {
+          $('#selfie-area').css("opacity", "0");
+          $('#selfie-area').css("pointer-events", "none");
+          $('#selfie-area').css("cursor", "default");
+          $('#selfie-button-icon').css("opacity", "0");
+          $('#selfie-button-area').css("opacity", "0");
+          $('#selfie-button-area').css("pointer-events", "none");
+          $('#selfie-button-area').css("cursor", "default");
+        }
+        else {
+          $('#selfie-area').css("opacity", "1");
+          $('#selfie-area').css("pointer-events", "");
+          $('#selfie-area').css("cursor", "");
+          $('#selfie-button-icon').css("opacity", "1");
+          $('#selfie-button-area').css("pointer-events", "");
+          $('#selfie-button-area').css("cursor", "");
+        }
+      });
       
+      $('#location-toggle').change(function() {
+        if($(this).prop('checked') == false) { // 黑字
+          $('#location-textarea').css("color", "black");
+        }
+        else {
+          $('#location-textarea').css("color", "white");
+        }
+      });
+      
+      $('#experience-toggle-1').change(function() {
+        if($(this).prop('checked') == true) { // 紅字
+          $('#experience-1').css("color", "red");
+        }
+        else {
+          $('#experience-1').css("color", "black");
+        }
+      });
+      
+      $('#experience-toggle-2').change(function() {
+        if($(this).prop('checked') == true) { // 紅字
+          $('#experience-2').css("color", "red");
+        }
+        else {
+          $('#experience-2').css("color", "black");
+        }
+      });
+      
+      $('#experience-toggle-3').change(function() {
+        if($(this).prop('checked') == true) { // 紅字
+          $('#experience-3').css("color", "red");
+        }
+        else {
+          $('#experience-3').css("color", "black");
+        }
+      });
     </script>
 		
 	</div>
