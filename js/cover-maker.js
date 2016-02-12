@@ -20,12 +20,24 @@ $(function(){
 	$('.image-editor:eq(0)').cropit({
     imageBackground: true,
     imageBackgroundBorderWidth: 50,
+    onImageError: function(error){
+    	$('#selfie-error-message>.alert').html(error.message);
+    	$('#selfie-error-message').collapse();
+
+    	setTimeout(function(){$('#selfie-error-message').collapse('hide');}, 3000);
+    },
   });
 
   $('.image-editor:eq(1)').cropit({
   	exportZoom: 2,
     imageBackground: true,
     imageBackgroundBorderWidth: 50,
+    onImageError: function(error){
+    	$('#poster-error-message>.alert').html(error.message);
+    	$('#poster-error-message').collapse();
+
+    	setTimeout(function(){$('#poster-error-message').collapse('hide');}, 3000);
+    },
   });
 
 	//fix image preview
@@ -114,24 +126,24 @@ $(function(){
 
   //----edit area----
 
+  //need reexport if setting change
+  $('#poster-form').find('input').change(function(){
+  	$('#download').attr('disabled', true);
+  	$('#download').removeAttr('href');
+  	$('#download').removeAttr('download');
+  });
+
   //selfie
   $('#selfie-toggle').change(function() {
     if($(this).prop('checked') == false) 
       $('#selfie-all').hide();
     else 
       $('#selfie-all').show();
-
-    //disable download btn
-    if (!readyForExport()){
-    	$('#download').attr('disabled', true);
-    	$('#download').removeAttr('href');
-    	$('#download').removeAttr('download');
-    }
   });
 
   //location color
-  $('#location-toggle').change(function() {
-    if($(this).prop('checked') == false) {
+  $('.location-radio').change(function() {
+    if($('.location-radio:checked').val() == "黑色") {
       $('#location-textarea').css("color", "black");
     }
     else {
@@ -257,7 +269,7 @@ $(function(){
       //文字本身
       ctx.globalAlpha = 1;
       ctx.font="700 24px Helvetica";
-      if($('#location-toggle').prop('checked') == true) { // 白字
+      if($('.location-radio:checked').val() == "白色") { // 白字
         ctx.fillStyle = "#FFFFFF";
       }
       else {
