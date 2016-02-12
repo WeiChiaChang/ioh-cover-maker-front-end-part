@@ -246,11 +246,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.$imageBgContainer = (0, _jquery2['default'])('<div />').addClass(_constants.CLASS_NAMES.IMAGE_BACKGROUND_CONTAINER).css({
 	          position: 'absolute',
 	          zIndex: 0,
-	          left: 75,
+	          left: -this.imageBgBorderWidthArray[3] + window.parseInt(this.$preview.css('border-left-width') || 0),
 	          top: -this.imageBgBorderWidthArray[0] + window.parseInt(this.$preview.css('border-top-width') || 0),
 	          width: this.previewSize.w + this.imageBgBorderWidthArray[1] + this.imageBgBorderWidthArray[3],
 	          height: this.previewSize.h + this.imageBgBorderWidthArray[0] + this.imageBgBorderWidthArray[2]
-	          
 	        }).append(this.$imageBg);
 	        if (this.imageBgBorderWidthArray[0] > 0) {
 	          this.$imageBgContainer.css('overflow', 'hidden');
@@ -656,13 +655,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var exportZoom = exportOptions.originalSize ? 1 / this.zoom : this.options.exportZoom;
 
 	      var zoomedSize = {
-	        w: this.zoom * exportZoom * this.imageSize.w * 4,
-	        h: this.zoom * exportZoom * this.imageSize.h * 4
+	        w: this.zoom * exportZoom * this.imageSize.w,
+	        h: this.zoom * exportZoom * this.imageSize.h
 	      };
 
 	      var canvas = (0, _jquery2['default'])('<canvas />').attr({
-	        width: this.previewSize.w * exportZoom * 4,
-	        height: this.previewSize.h * exportZoom * 4
+	        width: this.previewSize.w * exportZoom,
+	        height: this.previewSize.h * exportZoom
 	      }).get(0);
 	      var canvasContext = canvas.getContext('2d');
 
