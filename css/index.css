@@ -1,3 +1,14 @@
+
+#preview {
+	position: relative;
+	width: 960px;
+	height: 430px;
+	margin: 0 auto;
+}
+
+
+/*  selfie-area  */
+
 #selfie-area {
     position: absolute;
     top: 233px;
@@ -37,13 +48,6 @@
     cursor: pointer;
 }
 
-#preview-one {
-	position: relative;
-	width: 960px;
-	height: 430px;
-	margin: 0 auto;
-}
-
 #selfie-button-word {
     color: white;
     opacity: 0;
@@ -56,6 +60,25 @@
     cursor: pointer;
     z-index: 99;
 }
+
+#selfie-detector {
+	position: absolute;
+  top: 238px;
+  left: 775px;
+	display: block;
+	width: 160px;
+	height: 160px;
+	background-color: black;
+	opacity: 0;
+	z-index: 100;
+	text-decoration: none;
+}
+
+#selfie-detector:hover {
+	cursor: pointer;
+}
+
+/*  poster-area  */
 
 #poster-content {
 	position: absolute;
@@ -99,13 +122,34 @@
     opacity: 0;
 }
 
+#poster-button-detector {
+	position: absolute;
+  top: 30px;
+  left: 30px;
+	display: block;
+	width: 158px;
+	height: 34px;
+	background-color: black;
+	opacity: 0;
+	z-index: 100;
+	text-decoration: none;
+}
+
+#poster-button-detector:hover {
+	cursor: pointer;
+}
+
+/*  banner  */
+
 #ioh-banner {
 	position: absolute;
 	top: 430px;
 }
 
+/*  edit-area  */
+
 #poster-form {
-    position: absolute;
+  position: absolute;
 	top: 900px;
 	border: #000000 2px solid;
 	padding: 10px;
@@ -115,13 +159,7 @@
 	margin: 0 auto;
 }
 
-#add-icon {
-    padding-left: 5px;
-}
-
-#range-bar {
-    padding-top: 12px;
-}
+/*  poster-other-area  */
 
 #poster-content-area {
     position: absolute;
@@ -218,6 +256,16 @@
     font-family: "微軟正黑體";
 }
 
+/*  cropit-area  */
+
+#add-icon {
+    padding-left: 5px;
+}
+
+#range-bar {
+    padding-top: 12px;
+}
+
 .range-bar-container {
     padding-top: 30px;
 }
@@ -231,46 +279,45 @@
     font-weight: bold;
 }
 
-.row {
-    width: 30%;
-    margin-left: 15%;
-    margin-top: 30px;
-}
 
 #selfie-cropit-image-preview {
-	background-color: #f8f8f8;
+		background-color: #f8f8f8;
     background-size: cover;
     border: 0px solid #ccc;
     border-radius: 3px;
-   	margin-top: 30px;
-   	margin-left: 11%;
+		margin: auto;
     width: 320px;
     height: 320px;
     cursor: move;
 }
 
+
 #poster-cropit-image-preview {
-	background-color: #f8f8f8;
+		background-color: #f8f8f8;
     background-size: cover;
     border: 0px solid #ccc;
     border-radius: 3px;
-   	margin-top: 30px;
-   	margin-left: 11%;
+		margin: auto;
     width: 480px;
     height: 215px;
     cursor: move;
 }
 
+
 #poster-modal-dialog {
-    width: 750px;
+    width: 900px;
 }
+
 
 #poster-range-bar-container {
     margin-left: 250px;
 }
 
-.cropit-image-zoom-input {
-    width: 100%;
+
+input.cropit-image-zoom-input {
+    width: 110px;
+		margin: 15px auto 5px auto;
+		position: relative;
 }
 
 .modal-body {
@@ -278,6 +325,8 @@
 }
 
 .cropit-image-background {
+		margin-left: auto;
+		margin-right: auto;
     opacity: .2;
     cursor: auto;
 }
@@ -291,6 +340,8 @@ input {
     position: relative;
     z-index: 10;
 }
+
+
 
 
 

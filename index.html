@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>my-cover-maker</title>
+	
+	<!-- css -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+	<link rel="stylesheet" href="css/bootstrap2-toggle.min.css"></link>
+	<link rel="stylesheet" href="css/index.css">
+	
+</head>
+<body>
+	
+	<div class="container">
+		
+		<!-- 說明 -->
+		<div class="jumbotron">
+      <h1>操作說明</h1>
+      <ol>
+          <li>點選圖片可以裁切</li>
+          <li>點選文字填寫基本資料</li>
+          <li>在下方設定文字內容</li>	
+          <li>存檔後寄給工作人員!</li>
+      </ol>
+    </div>
+
+    <!-- preview -->
+		<div id="preview">
+
+				<!-- background picture -->
+		    <div id="poster-content">
+		        <div id="poster-area">
+		            <img id="poster-image" src="img/place-holder-960x430.png" width="960" height="430">
+		        </div>
+		        <img id="poster-button-icon" src="img/camera3.png" data-toggle="modal" data-target="#poster-modal" height="30" width="30">
+		        <a id="poster-button-area">
+		            <div class="col-md-8" id="poster-button-word">更換背景圖</div>
+		        </a>
+		        <a id="poster-button-detector" data-toggle="modal" data-target="#poster-modal"></a>
+		    </div>
+
+		    <!-- ioh banner -->
+		    <div id="ioh-banner">
+		        <img src="img/testIOH.png" width="960" height="110">
+		    </div>
+				
+				<!-- selfie -->
+		    <div id="selfie-all">
+			    <a id="selfie-area">
+			        <img id="selfie-image" src="img/place-holder-320x320.png" width="160" height="160">
+			    </a>
+			    <img id="selfie-button-icon" src="img/camera3.png" data-toggle="modal" data-target="#selfie-modal" height="30" width="30">
+			    <a id="selfie-button-area" data-toggle="modal" data-target="#selfie-modal">
+			        <div class="col-md-8" id="selfie-button-word">更換大頭貼</div>
+			    </a>
+			    <a id="selfie-detector" data-toggle="modal" data-target="#selfie-modal"></a>
+		    </div>
+
+		     <!-- description -->
+		    <div id="poster-content-area">
+		        <textarea id="poster-content-textarea" placeholder="（簡介）"></textarea>
+		    </div>
+				
+				<!-- location -->
+		    <div id="location-area">
+		        <textarea id="location-textarea">地點：</textarea>
+		    </div>
+				
+				<!-- experience -->
+		    <div id="name-experience-area">
+		        <textarea id="name-textarea" placeholder="（姓名）"></textarea>
+		        <textarea class="experience-textarea" id="experience-1" placeholder="（經歷1）"></textarea>
+		        <textarea class="experience-textarea" id="experience-2" placeholder="（經歷2）"></textarea>
+		        <textarea class="experience-textarea" id="experience-3" placeholder="（經歷3）"></textarea>
+		    </div>
+		</div>
+		
+		<!-- edit erea -->
+		<div class="container" id="poster-form">
+		  
+		  <input id="selfie-toggle" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-on="使用" data-off="不使用" data-width="75" data-height="34">
+		  <span>大頭貼</span> &nbsp &nbsp
+
+		  <input id="location-toggle" type="checkbox" checked data-toggle="toggle" data-onstyle="default" data-on="白字" data-off="黑字" data-width="65" data-height="34">
+		  <span>地點</span> &nbsp &nbsp
+
+		  <input id="experience-toggle-1" type="checkbox" data-toggle="toggle" data-onstyle="danger" data-on="紅字" data-off="黑字" data-width="65" data-height="34">
+		  <span>經歷一</span> &nbsp &nbsp
+
+		  <input id="experience-toggle-2" type="checkbox" data-toggle="toggle" data-onstyle="danger" data-on="紅字" data-off="黑字" data-width="65" data-height="34">
+		  <span>經歷二</span> &nbsp &nbsp
+
+		  <input id="experience-toggle-3" type="checkbox" data-toggle="toggle" data-onstyle="danger" data-on="紅字" data-off="黑字" data-width="65" data-height="34">
+		  <span>經歷三</span>
+		  <br><br>
+			
+			<a type="button" class="btn btn-info" id="draw">輸出</a>
+
+		  <a type="button" class="btn btn-info" id="download" disabled>下載</a>
+		  <br><br>
+
+		</div>
+
+		<!-- selfie-modal -->
+		<div class="modal fade" id="selfie-modal" tabindex="-1" role="dialog" aria-labelledby="mySelfieModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+        <div class="modal-content">
+					
+					<!-- header -->
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="mySelfieModalLabel">大頭貼裁切</h4>
+          </div>
+					
+					<!-- body -->
+          <div class="modal-body">
+            <div class="image-editor">
+              <input type="file" class="cropit-image-input">
+              <!-- .cropit-image-preview-container is needed for background image to work -->
+              <div class="cropit-image-preview-container">
+                <div class="cropit-image-preview" id="selfie-cropit-image-preview"></div>
+              </div>
+              
+              <input type="range" class="cropit-image-zoom-input">
+                
+            </div>
+          </div>
+					
+					<!-- footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" id="selfie-export-exit-button" data-dismiss="modal">關閉</button>
+              <button type="button" class="btn btn-primary selfie-export">確定</button>
+          </div>
+
+        </div>
+        <!-- /.modal-content -->
+	    </div>
+	    <!-- /.modal -->
+		</div>
+
+		<!-- poster-modal -->
+    <div class="modal fade" id="poster-modal" tabindex="-1" role="dialog" aria-labelledby="myPosterModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" id="poster-modal-dialog">
+        <div class="modal-content">
+          
+          <!-- header -->
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myPosterModalLabel">背景圖裁切</h4>
+          </div>
+          
+          <!-- body -->
+          <div class="modal-body">
+            <div class="image-editor" id="poster-image-editor">
+              <input type="file" class="cropit-image-input">
+              <!-- .cropit-image-preview-container is needed for background image to work -->
+              <div class="cropit-image-preview-container">
+                <div class="cropit-image-preview" id="poster-cropit-image-preview"></div>
+              </div>
+
+              <input type="range" class="cropit-image-zoom-input">
+                
+            </div>
+          </div>
+          
+          <!-- footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="poster-export-exit-button"  data-dismiss="modal">關閉</button>
+            <button type="button"  class="btn btn-primary poster-export">確定</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+
+    <!-- error-modal -->
+    <div class="modal fade error-modal" tabindex="-1" role="dialog" aria-labelledby="error-ModalLabel">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+
+		      <!-- header -->
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">錯誤</h4>
+		      </div>
+
+		      <!-- body -->
+		      <div class="modal-body">
+		        <span id="error-message">Error Massage</span>
+		      </div>
+
+		      <!-- footer -->
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
+
+
+	</div>
+
+
+
+
+	<!-- javascript -->
+	<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cropit.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap2-toggle.min.js"></script>
+	<script type="text/javascript" src="js/cover-maker.js"></script>
+
+</body>
+</html>
