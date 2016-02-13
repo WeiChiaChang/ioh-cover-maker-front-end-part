@@ -127,7 +127,7 @@ $(function(){
   //----edit area----
 
   //need reexport if setting change
-  $('#poster-form').find('input').change(function(){
+  $('.edit-area').find('input').change(function(){
   	$('#download').attr('disabled', true);
   	$('#download').removeAttr('href');
   	$('#download').removeAttr('download');
@@ -383,6 +383,9 @@ $(function(){
 
   	if (typeof(posterImageData) == 'undefined')
   		errorArray.push("背景照尚未上傳");
+
+  	if ($('.experience-checkbox').find('input:checked').length == 0)
+  		errorArray.push("未選擇經歷");
 
   	if (errorArray.length == 0)
   		return true;

@@ -182,6 +182,22 @@ h1 {
 
 /*  poster-other-area  */
 
+textarea:hover {
+	background-color: #CCFF66;
+}
+
+#location-textarea:hover {
+	background-color: #CCFF66;
+}
+
+#poster-content-textarea:hover {
+	background-color: #CCFF66;
+}
+
+#name-textarea:hover {
+	background-color: #CCFF66;
+}
+
 #poster-content-area {
     position: absolute;
     bottom: 27px;
@@ -368,21 +384,16 @@ input {
     z-index: 10;
 }
 
-.edit-area div {
-	display: inline-block;
-}
-
-.edit-area > label {
-	margin-left: 5px;
-	font-size: 20px;
-	color: white;
-}
-
-.edit-area > a {
-	margin-left: 5px;
-}
-
 .content {
-	height: 550px;
-	margin-bottom: 10px;
+	height: 600px;
+	margin-bottom: -50px;
+}
+
+.footer {
+	height: 50px;
+	width: 100%;
+}
+
+#experience-1 {
+	color: red;
 }
