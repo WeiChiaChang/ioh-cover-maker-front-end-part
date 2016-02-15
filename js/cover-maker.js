@@ -124,6 +124,13 @@ $(function(){
     
   });
 
+  //----textarea----
+  //textarea自動長高高
+  document.getElementById('poster-content-textarea').addEventListener('keyup', function () {
+    this.style.height = 0;
+    this.style.height = this.scrollHeight + 'px';
+  }, false);
+
   //----edit area----
 
   //need reexport if setting change
